@@ -289,7 +289,8 @@ services:
       - ./logs/zeppelin:/usr/program/zeppelin/logs
     environment:
       ZEPPELIN_PORT: 8890
-      ZEPPELIN_NOTEBOOK_DIR: '/zeppelin_notebooks'
+      ZEPPELIN_NOTEBOOK_DIR: '/zeppelin_notebooks'=
+      HBASE_HOME: /usr/program/hbase
     expose:
       - 8890
     ports:
