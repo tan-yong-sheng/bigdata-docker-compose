@@ -276,21 +276,22 @@ services:
       - "zoo3:172.28.1.13"
 
   zeppelin:
-    image:  lisacumt/zeppelin-bigdata-docker:1.1.6
-#    build: '../zeppelin-bigdata-docker'
+  zeppelin:
+    image: lisacumt/zeppelin-bigdata-docker:1.1.6
     hostname: zeppelin
     depends_on:
       - master
       - worker1
       - worker2
+    environment:
+      ZEPPELIN_PORT: 8890
+      ZEPPELIN_NOTEBOOK_DIR: '/zeppelin_notebooks'
+      HBASE_HOME: /usr/program/hbase
     volumes:
       - ./zeppelin_notebooks:/zeppelin_notebooks
       - ./data:/data
       - ./logs/zeppelin:/usr/program/zeppelin/logs
-    environment:
-      ZEPPELIN_PORT: 8890
-      ZEPPELIN_NOTEBOOK_DIR: '/zeppelin_notebooks'
-      HBASE_HOME: '/usr/program/hbase'
+      - ./hbase-connector:/usr/program/hbase
     expose:
       - 8890
     ports:
@@ -304,6 +305,7 @@ services:
       - "worker2:172.28.1.3"
       - "hivemetastore:172.28.1.4"
       - "zeppelin:172.28.1.5"
+      - "livy:172.28.1.6"
       - "zoo1:172.28.1.11"
       - "zoo2:172.28.1.12"
       - "zoo3:172.28.1.13"
